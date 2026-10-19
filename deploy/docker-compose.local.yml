@@ -1,0 +1,51 @@
+# 本地开发用的数据库和缓存。
+# 和生产的区别：密码是简单的 kb，端口直接映射到本机，数据卷名字加 local 后缀避免混淆。
+#
+# 用法：
+#   cd deploy
+#   docker compose -f docker-compose.local.yml up -d      # 启动
+#   docker compose -f docker-compose.local.yml down       # 停止（数据保留）
+#   docker compose -f docker-compose.local.yml down -v    # 停止并清空数据
+#
+# 启动之后，用默认配置跑应用（不加 dev profile），就是生产同款：
+#   mvn spring-boot:run
+services:
+
+  postgres:
+    # 和服务器上同一个镜像：PostgreSQL 17 + pgvector 扩展
+    image: docker.m.daocloud.io/pgvector/pgvector:pg17
+    container_name: kb-postgres-local
+    environment:
+      POSTGRES_DB: kb
+      POSTGRES_USER: kb
+      POSTGRES_PASSWORD: kb
+    ports:
+      - "5432:5432"
+    volumes:
+      - kb-pgdata-local:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kb -d kb"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    # 本地不设密码，省得每次都要配环境变量；生产环境一定要设
+    image: docker.m.daocloud.io/library/redis:7-alpine
+    container_name: kb-redis-local
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - kb-redis-local:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  kb-pgdata-local:
+  kb-redis-local:

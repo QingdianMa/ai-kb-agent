@@ -1,0 +1,124 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ai-kb-agent
+  config:
+    # 自动加载项目根目录的 .env（按 properties 格式解析），不存在也不报错。
+    # 生产环境仍然可以直接用系统环境变量覆盖这里的值。
+    import: "optional:file:./.env[.properties]"
+  datasource:
+    url: jdbc:postgresql://${KB_DB_HOST:localhost}:${KB_DB_PORT:5432}/${KB_DB_NAME:kb}
+    username: ${KB_DB_USER:kb}
+    password: ${KB_DB_PASSWORD:kb}
+    hikari:
+      maximum-pool-size: 10
+      pool-name: kb-pool
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+  data:
+    redis:
+      host: ${KB_REDIS_HOST:localhost}
+      port: ${KB_REDIS_PORT:6379}
+      password: ${KB_REDIS_PASSWORD:}
+      # 超时设短一点：Redis 不可用时要快速降级，不能拖慢问答
+      timeout: 2s
+      connect-timeout: 2s
+  servlet:
+    multipart:
+      # 限制 20MB：异步入库会把文件内容暂存在内存队列里，
+      # 单文件上限乘以队列容量就是最坏情况的内存占用，所以要压住
+      max-file-size: 20MB
+      max-request-size: 20MB
+  jackson:
+    default-property-inclusion: non_null
+
+kb:
+  chat:
+    # DeepSeek 提供 OpenAI 兼容接口，所以可以直接复用 OpenAiChatModel
+    base-url: ${KB_CHAT_BASE_URL:https://api.deepseek.com/v1}
+    api-key: ${KB_CHAT_API_KEY:}
+    # 注意：DeepSeek 的模型名已换代，deepseek-chat 不在官方文档上了，现在叫 deepseek-flash
+    model: ${KB_CHAT_MODEL:deepseek-flash}
+    temperature: 0.2
+    timeout-seconds: 120
+    # DeepSeek 默认开启思考模式（强度 high），会先输出一大段思维链，又慢又贵。
+    # 知识库问答用不到，默认关掉；想体验推理能力可以改成 enabled。
+    thinking: ${KB_CHAT_THINKING:disabled}
+    log-requests: false
+    log-responses: false
+  embedding:
+    # 注意：DeepSeek 没有 embedding 接口，向量模型必须单独配置一家
+    base-url: ${KB_EMBED_BASE_URL:https://api.siliconflow.cn/v1}
+    api-key: ${KB_EMBED_API_KEY:}
+    model: ${KB_EMBED_MODEL:BAAI/bge-m3}
+    dimension: ${KB_EMBED_DIMENSION:1024}
+    # 是否在请求里带 dimensions 参数：OpenAI 的 text-embedding-3 系列需要，
+    # 硅基流动/百炼带上会报 20015 参数错误，所以默认关闭
+    send-dimension-parameter: ${KB_EMBED_SEND_DIMENSIONS:false}
+    timeout-seconds: 60
+    # 分批向量化，避免一次请求过大被限流或超时
+    batch-size: ${KB_EMBED_BATCH_SIZE:16}
+  retrieval:
+    max-results: 6
+    min-score: 0.35
+    # 混合检索：向量通道和关键词通道各召回多少候选，融合后保留多少条交给重排
+    vector-top-k: 20
+    keyword-top-k: 20
+    fusion-top-k: 20
+    # RRF 公式里的平滑常数，经典取值 60
+    rrf-k: 60
+    # 混合检索和重排的开关，用来做消融实验
+    keyword-enabled: ${KB_RETRIEVAL_KEYWORD_ENABLED:true}
+    rerank-enabled: ${KB_RETRIEVAL_RERANK_ENABLED:true}
+  rerank:
+    # 重排模型复用向量模型的地址和密钥（同一家服务）
+    model: ${KB_RERANK_MODEL:BAAI/bge-reranker-v2-m3}
+    timeout-seconds: 30
+  cache:
+    # 问题向量缓存：热点问题不用重复调嵌入接口
+    enabled: ${KB_CACHE_ENABLED:true}
+    ttl-hours: ${KB_CACHE_TTL_HOURS:168}
+  rate-limit:
+    # 问答接口限流：每个 IP 在窗口期内最多提问几次
+    enabled: ${KB_RATE_LIMIT_ENABLED:true}
+    window-seconds: ${KB_RATE_LIMIT_WINDOW:60}
+    limit: ${KB_RATE_LIMIT_MAX:20}
+    # 只有部署在可信代理（Nginx 等）后面时才打开，否则该请求头可被伪造
+    trust-forwarded-header: ${KB_RATE_LIMIT_TRUST_XFF:false}
+  ingest:
+    # 知识库语料目录：放对外公开的实验室资料（招生简章、研究方向、设备清单等）
+    # 不要指向 docs/，那里是开发文档，入库后会被访客检索到
+    source-dir: ${KB_KNOWLEDGE_DIR:knowledge}
+    # 异步入库的线程池。入库是 IO 密集型（等嵌入接口返回），所以线程数不用多
+    core-pool-size: ${KB_INGEST_CORE_POOL:2}
+    max-pool-size: ${KB_INGEST_MAX_POOL:4}
+    queue-capacity: ${KB_INGEST_QUEUE:50}
+  security:
+    # 访客口令：留空 = 站点完全公开（正式上线后的状态）。
+    # 上线前如果想先内测，可以设置一个口令，只有拿到口令的人能访问。
+    access-token: ${KB_ACCESS_TOKEN:}
+    # 管理员口令：后台所有写操作的凭证。上线必须设置。
+    admin-token: ${KB_ADMIN_TOKEN:}
+  eval:
+    # 评测集生成：读 docs/ 下的文档，反向生成问题
+    docs-path: ${KB_EVAL_DOCS_PATH:docs}
+    output-path: ${KB_EVAL_OUTPUT_PATH:eval/qa-set-generated.json}
+    generate-limit: ${KB_EVAL_LIMIT:40}
+  storage:
+    host: ${KB_DB_HOST:localhost}
+    port: ${KB_DB_PORT:5432}
+    database: ${KB_DB_NAME:kb}
+    user: ${KB_DB_USER:kb}
+    password: ${KB_DB_PASSWORD:kb}
+    vector-table: kb_embedding
+    # 上传文件的存储目录。生产环境要挂到容器卷上，否则重新部署会丢文件
+    upload-dir: ${KB_UPLOAD_DIR:data/uploads}
+
+logging:
+  level:
+    com.kbagent: INFO
+    dev.langchain4j: INFO

@@ -1,0 +1,104 @@
+# 生产部署：一个数据库 + 一个应用。
+# 需要同目录下的 .env 提供密钥（参考 .env.server.example）。
+services:
+
+  postgres:
+    # 镜像源可换：国内直连 Docker Hub 会超时，默认走 daocloud
+    # 改成 ${KB_DOCKER_REGISTRY}/pgvector/pgvector:pg17
+    image: ${KB_DOCKER_REGISTRY:-docker.m.daocloud.io}/pgvector/pgvector:pg17
+    container_name: kb-postgres
+    environment:
+      POSTGRES_DB: ${KB_DB_NAME:-kb}
+      POSTGRES_USER: ${KB_DB_USER:-kb}
+      POSTGRES_PASSWORD: ${KB_DB_PASSWORD:?必须在 .env 里设置数据库密码}
+    volumes:
+      - kb-pgdata:/var/lib/postgresql/data
+    ports:
+      # 只绑定到 127.0.0.1：宿主机上的工具可以连（psql、Navicat 走 SSH 隧道），
+      # 但外网完全连不上。如果写成 "5432:5432"，数据库就暴露在公网了——不要那么做。
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${KB_DB_USER:-kb} -d ${KB_DB_NAME:-kb}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    networks: [kb]
+
+  redis:
+    # Redis 在本项目里干两件事：缓存问题向量、按 IP 限流
+    image: ${KB_DOCKER_REGISTRY:-docker.m.daocloud.io}/library/redis:7-alpine
+    container_name: kb-redis
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass ${KB_REDIS_PASSWORD:?必须在 .env 里设置 Redis 密码}
+    volumes:
+      - kb-redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a ${KB_REDIS_PASSWORD} ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    networks: [kb]
+
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        BASE_IMAGE: ${KB_DOCKER_REGISTRY:-docker.m.daocloud.io}/library/eclipse-temurin:17-jre
+    container_name: kb-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # JVM 堆大小。默认 1G，但共享机器上内存可能不够，
+      # 通过在 .env 里设 JAVA_OPTS 覆盖，不用改 Dockerfile
+      JAVA_OPTS: ${JAVA_OPTS:--Xms256m -Xmx1g}
+      KB_CHAT_BASE_URL: ${KB_CHAT_BASE_URL:-https://api.deepseek.com/v1}
+      KB_CHAT_API_KEY: ${KB_CHAT_API_KEY:?必须在 .env 里设置}
+      KB_CHAT_MODEL: ${KB_CHAT_MODEL:-deepseek-flash}
+      KB_CHAT_THINKING: ${KB_CHAT_THINKING:-disabled}
+      KB_EMBED_BASE_URL: ${KB_EMBED_BASE_URL:-https://api.siliconflow.cn/v1}
+      KB_EMBED_API_KEY: ${KB_EMBED_API_KEY:?必须在 .env 里设置}
+      KB_EMBED_MODEL: ${KB_EMBED_MODEL:-BAAI/bge-m3}
+      KB_EMBED_DIMENSION: ${KB_EMBED_DIMENSION:-1024}
+      KB_EMBED_BATCH_SIZE: ${KB_EMBED_BATCH_SIZE:-16}
+      KB_ACCESS_TOKEN: ${KB_ACCESS_TOKEN:-}
+      KB_ADMIN_TOKEN: ${KB_ADMIN_TOKEN:-}
+      # Redis：容器之间用服务名访问
+      KB_REDIS_HOST: redis
+      KB_REDIS_PORT: 6379
+      KB_REDIS_PASSWORD: ${KB_REDIS_PASSWORD:?必须在 .env 里设置 Redis 密码}
+      KB_RATE_LIMIT_ENABLED: ${KB_RATE_LIMIT_ENABLED:-true}
+      KB_UPLOAD_DIR: /app/data/uploads
+      # 容器之间用服务名互相访问，所以数据库主机名是 postgres 而不是 localhost
+      KB_DB_HOST: postgres
+      KB_DB_PORT: 5432
+      KB_DB_NAME: ${KB_DB_NAME:-kb}
+      KB_DB_USER: ${KB_DB_USER:-kb}
+      KB_DB_PASSWORD: ${KB_DB_PASSWORD:?必须在 .env 里设置数据库密码}
+    ports:
+      - "${KB_APP_PORT:-8080}:8080"
+    volumes:
+      # 上传的照片必须挂在卷上，否则重新部署容器时会被清掉
+      - kb-uploads:/app/data/uploads
+      # 知识库语料挂载出来：在服务器上直接改 knowledge/ 里的文件，
+      # 然后点后台的「同步知识库目录」就能生效，不用重新构建镜像
+      - ../knowledge:/app/knowledge:ro
+      # 评测集同样挂载：改完评测集不用重新部署
+      - ../eval:/app/eval
+    restart: unless-stopped
+    networks: [kb]
+
+volumes:
+  kb-pgdata:
+  kb-redis:
+  kb-uploads:
+
+networks:
+  kb:

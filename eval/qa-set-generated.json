@@ -1,0 +1,245 @@
+{
+  "name" : "自动生成评测集（待人工审核）",
+  "generatedAt" : "2026-10-07T07:31:44.909497200Z",
+  "source" : "docs",
+  "count" : 34,
+  "items" : [ {
+    "id" : 1,
+    "source" : "00-总览与日程.md",
+    "section" : "## 二、三条铁律",
+    "question" : "混合检索加重排为什么性价比最高？",
+    "keywords" : [ "混合检索", "重排", "召回率" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 2,
+    "source" : "00-总览与日程.md",
+    "section" : "## 三、9 天日程",
+    "question" : "混合检索和重排打算什么时候做，要花多久？",
+    "keywords" : [ "混合检索", "重排", "6 小时" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 3,
+    "source" : "00-总览与日程.md",
+    "section" : "## 四、关键决策（已定）",
+    "question" : "向量模型用的哪个，多少维？",
+    "keywords" : [ "BAAI/bge-m3", "1024 维" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 4,
+    "source" : "00-总览与日程.md",
+    "section" : "## 五、文档索引",
+    "question" : "我忘了某个配置或命令该查哪份文档？",
+    "keywords" : [ "02-技术档案.md", "配置", "命令", "版本" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 5,
+    "source" : "01-待办与数据记录.md",
+    "section" : "### 三个问题与结果",
+    "question" : "首字延迟超过几秒说明检索或模型调用有问题？",
+    "keywords" : [ "首字延迟", "5 秒", "检索", "模型调用" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 6,
+    "source" : "01-待办与数据记录.md",
+    "section" : "### 初步观察（10/6 记录）",
+    "question" : "为什么问文章分几章答得差？",
+    "keywords" : [ "top-K", "向量检索", "结构性短板" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 7,
+    "source" : "01-待办与数据记录.md",
+    "section" : "## 三、10/8：搞懂设计取舍",
+    "question" : "为什么先按章节切再按长度切？只用固定长度切会有什么问题？",
+    "keywords" : [ "章节切", "固定长度切", "800 字", "120 字重叠" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 8,
+    "source" : "02-技术档案.md",
+    "section" : "## 二、机器环境（已统一）",
+    "question" : "Maven 本地仓库路径配到哪了？",
+    "keywords" : [ "Maven", "mavenLib" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 9,
+    "source" : "02-技术档案.md",
+    "section" : "## 三、技术选型",
+    "question" : "LangChain4j 1.x 需要 JDK 多少版本？",
+    "keywords" : [ "LangChain4j", "JDK", "17" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 10,
+    "source" : "02-技术档案.md",
+    "section" : "### DeepSeek 价格（每百万 token，人民币）",
+    "question" : "deepseek-flash 在空闲时段输入和输出分别多少钱？",
+    "keywords" : [ "空闲", "高峰", "token" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 11,
+    "source" : "02-技术档案.md",
+    "section" : "## 五、踩坑记录（面试可讲）",
+    "question" : "上传文件报500，日志里code 20015说参数无效，是什么原因？",
+    "keywords" : [ "dimensions", "20015" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 12,
+    "source" : "02-技术档案.md",
+    "section" : "### 部署架构",
+    "question" : "服务器重启后这两个容器会自动启动吗？",
+    "keywords" : [ "kb-postgres", "kb-pgdata" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 13,
+    "source" : "02-技术档案.md",
+    "section" : "## 七、代码地图（按调用链）",
+    "question" : "文档入库的时候是怎么处理的，从解析到落库都经过哪些步骤？",
+    "keywords" : [ "切分", "向量化" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 14,
+    "source" : "03-代码导读.md",
+    "section" : "## 二、第 1 站：HTTP 入口",
+    "question" : "stream 方法为什么返回 SseEmitter 而不是字符串？",
+    "keywords" : [ "SseEmitter", "stream()" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 15,
+    "source" : "03-代码导读.md",
+    "section" : "## 二、第 1 站：HTTP 入口",
+    "question" : "检索完之后怎么先把引用来源推给前端？",
+    "keywords" : [ "sources", "emit", "toSourceRefs" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 16,
+    "source" : "03-代码导读.md",
+    "section" : "## 二、第 1 站：HTTP 入口",
+    "question" : "为什么检索结果要先推给用户，而不是等模型生成完一起推？",
+    "keywords" : [ "sources", "200 毫秒", "SseEmitter", "emit()" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 17,
+    "source" : "03-代码导读.md",
+    "section" : "### 系统提示词的五条规则，每条都在解决一个具体问题",
+    "question" : "怎么让模型回答的时候标出答案是从哪条资料来的？",
+    "keywords" : [ "[1]", "编号", "来源", "参考资料" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 18,
+    "source" : "03-代码导读.md",
+    "section" : "### 参考资料是怎么拼出来的",
+    "question" : "检索到的资料片段是怎么拼进提示词里的，编号和文件名章节名都带上了吗？",
+    "keywords" : [ "i + 1", "truncate", "1200" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 19,
+    "source" : "03-代码导读.md",
+    "section" : "## 四、第 3 站：检索",
+    "question" : "检索的时候最多返回几段结果，相似度低于多少会被过滤掉？",
+    "keywords" : [ "maxResults", "minScore", "topK", "0.35" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 20,
+    "source" : "03-代码导读.md",
+    "section" : "## 四、第 3 站：检索",
+    "question" : "检索的时候 maxResults 和 minScore 分别是什么意思，调大调小会有什么影响？",
+    "keywords" : [ "maxResults", "minScore", "1024" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 21,
+    "source" : "03-代码导读.md",
+    "section" : "## 五、第 4 站：装配",
+    "question" : "为什么要把模型和向量库做成独立的 Bean？换供应商要改哪些地方？",
+    "keywords" : [ "Bean", "requireKey" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 22,
+    "source" : "03-代码导读.md",
+    "section" : "## 六、另一条线：文档入库",
+    "question" : "文档切分的时候每段多少字、重叠多少字？",
+    "keywords" : [ "800 字", "重叠 120 字", "章节切分" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 23,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 1 题：一次提问的完整数据流",
+    "question" : "浏览器发问题过来之后，是先转成向量去检索，还是直接拿原文去搜？",
+    "keywords" : [ "SSE", "文本片段", "向量" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 24,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 2 题：向量检索的原理与短板",
+    "question" : "向量检索为什么答不了这篇文章分几章这种问题？",
+    "keywords" : [ "余弦相似度", "全局性问题", "混合检索", "RRF" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 25,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 3 题：`minScore` 调高和调低分别会怎样",
+    "question" : "minScore 设成 0.9 会怎么样？",
+    "keywords" : [ "minScore", "maxResults", "0.9", "0.05" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 26,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 4 题：防幻觉是靠什么实现的？能拦住编造吗？",
+    "question" : "你们的防幻觉是怎么做的？如果模型还是编造内容，代码能拦住吗？",
+    "keywords" : [ "提示词", "后置校验", "检索层", "软约束" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 27,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 5 题：页面上的 `[1]` 角标从哪来、怎么传到前端",
+    "question" : "检索结果里的 [1] 角标数字是怎么来的？",
+    "keywords" : [ "i + 1", "toSourceRefs", "chunk_index", "sources" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 28,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 6 题：为什么关闭思考模式？代价是什么",
+    "question" : "DeepSeek 思考模式开着的话流式输出为什么没反应？",
+    "keywords" : [ "content", "temperature" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 29,
+    "source" : "04-面试问答.md",
+    "section" : "## 第 7 题：流式输出是怎么实现的",
+    "question" : "接口返回 SseEmitter 之后是怎么分阶段把数据推给前端的？",
+    "keywords" : [ "SseEmitter", "sources", "delta" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 30,
+    "source" : "04-面试问答.md",
+    "section" : "## 本轮检验暴露的两个规律（值得单独记住）",
+    "question" : "SSE 怎么实现，客户端断开怎么办？",
+    "keywords" : [ "SSE", "流式输出", "WebSocket", "下标加一" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 31,
+    "source" : "05-最终呈现效果.md",
+    "section" : "## 二、面试现场的 5 分钟演示脚本",
+    "question" : "系统怎么解决编号和专有名词召回不准的问题？",
+    "keywords" : [ "关键词召回", "RRF", "重排模型", "向量召回" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 32,
+    "source" : "05-最终呈现效果.md",
+    "section" : "## 四、简历上会写什么",
+    "question" : "纯向量检索在编号和专有名词上召回不准，你们是怎么解决的？",
+    "keywords" : [ "混合检索", "RRF", "重排模型", "Recall@6" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 33,
+    "source" : "05-最终呈现效果.md",
+    "section" : "## 五、和大部分候选人比，差异在哪",
+    "question" : "RAG项目怎么证明效果比别人的好？",
+    "keywords" : [ "消融实验", "公网可访问", "分批重试", "容器化" ],
+    "category" : "自动生成"
+  }, {
+    "id" : 34,
+    "source" : "05-最终呈现效果.md",
+    "section" : "## 七、倒推：还需要做什么",
+    "question" : "评测集现在有多少条，需要扩到多少条？",
+    "keywords" : [ "评测集", "25 条", "60 条" ],
+    "category" : "自动生成"
+  } ]
+}

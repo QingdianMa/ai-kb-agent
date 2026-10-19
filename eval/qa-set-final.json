@@ -1,0 +1,599 @@
+{
+  "name": "知识库评测集（合并版）",
+  "version": 1,
+  "createdAt": "2026-10-07",
+  "description": "手工题 + 大模型反向生成题合并去重。keywords 是答案中应出现的原文关键词。",
+  "count": 56,
+  "items": [
+    {
+      "id": 1,
+      "question": "项目编译用的 JDK 是哪个版本，装在哪个路径？",
+      "keywords": [
+        "17.0.13",
+        "JavaJDK"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 2,
+      "question": "向量模型 bge-m3 输出的向量维度是多少？",
+      "keywords": [
+        "1024"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 3,
+      "question": "检索时最多召回几个片段？相似度下限设成多少？",
+      "keywords": [
+        "0.35",
+        "max-results"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 4,
+      "question": "文档切分时单个片段的最大长度和重叠长度分别是多少？",
+      "keywords": [
+        "800",
+        "120"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 5,
+      "question": "分批向量化默认每批处理多少个片段？",
+      "keywords": [
+        "16"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 6,
+      "question": "单个片段在提示词里最多保留多少字符？",
+      "keywords": [
+        "1200"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 7,
+      "question": "这个项目用的对话模型和向量模型分别是哪个？",
+      "keywords": [
+        "deepseek-flash",
+        "bge-m3"
+      ],
+      "category": "定义类",
+      "origin": "手工"
+    },
+    {
+      "id": 8,
+      "question": "deepseek-flash 在空闲时段的输出价格是多少？",
+      "keywords": [
+        "4 元",
+        "百万"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 9,
+      "question": "硅基流动的 bge-m3 和重排模型收费吗？",
+      "keywords": [
+        "免费"
+      ],
+      "category": "定义类",
+      "origin": "手工"
+    },
+    {
+      "id": 10,
+      "question": "DeepSeek 的高峰时段是哪两个时间段？",
+      "keywords": [
+        "9:00",
+        "18:00"
+      ],
+      "category": "参数类",
+      "origin": "手工"
+    },
+    {
+      "id": 11,
+      "question": "访问口令对应的配置项叫什么名字？",
+      "keywords": [
+        "KB_ACCESS_TOKEN"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 12,
+      "question": "向量数据存在哪张表里？",
+      "keywords": [
+        "kb_embedding"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 13,
+      "question": "存放片段原文的数据库表叫什么？",
+      "keywords": [
+        "kb_chunk"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 14,
+      "question": "存放文档元数据的表叫什么？",
+      "keywords": [
+        "kb_document"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 15,
+      "question": "负责按章节切分的类叫什么名字？",
+      "keywords": [
+        "ContentSectioner"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 16,
+      "question": "负责向量召回的类叫什么名字？",
+      "keywords": [
+        "RetrievalService"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 17,
+      "question": "访问口令是在哪个类里校验的？",
+      "keywords": [
+        "AccessTokenFilter"
+      ],
+      "category": "编号类",
+      "origin": "手工"
+    },
+    {
+      "id": 18,
+      "question": "流式问答会依次推送哪几个事件？",
+      "keywords": [
+        "sources",
+        "delta",
+        "done"
+      ],
+      "category": "方法类",
+      "origin": "手工"
+    },
+    {
+      "id": 19,
+      "question": "文档入库流水线分为哪几步？",
+      "keywords": [
+        "解析",
+        "切分",
+        "向量化",
+        "落库"
+      ],
+      "category": "方法类",
+      "origin": "手工"
+    },
+    {
+      "id": 20,
+      "question": "完整的防幻觉应该有几层？目前实现了哪一层？",
+      "keywords": [
+        "三层",
+        "提示词"
+      ],
+      "category": "方法类",
+      "origin": "手工"
+    },
+    {
+      "id": 21,
+      "question": "为什么要关闭 DeepSeek 的思考模式？",
+      "keywords": [
+        "流式",
+        "token"
+      ],
+      "category": "方法类",
+      "origin": "手工"
+    },
+    {
+      "id": 22,
+      "question": "服务器上应用的访问地址和端口是什么？",
+      "keywords": [
+        "127.0.0.1",
+        "8080"
+      ],
+      "category": "部署类",
+      "origin": "手工"
+    },
+    {
+      "id": 23,
+      "question": "部署时数据库用的 Docker 镜像是什么？",
+      "keywords": [
+        "pgvector",
+        "pg17"
+      ],
+      "category": "部署类",
+      "origin": "手工"
+    },
+    {
+      "id": 24,
+      "question": "容器的重启策略配置成了什么？",
+      "keywords": [
+        "unless-stopped"
+      ],
+      "category": "部署类",
+      "origin": "手工"
+    },
+    {
+      "id": 25,
+      "question": "项目文档一共有哪几份？分别讲什么？",
+      "keywords": [
+        "00-总览与日程",
+        "01-待办",
+        "02-技术档案",
+        "03-代码导读",
+        "04-面试问答"
+      ],
+      "category": "全局类",
+      "origin": "手工"
+    },
+    {
+      "id": 26,
+      "question": "混合检索加重排为什么性价比最高？",
+      "keywords": [
+        "混合检索",
+        "重排",
+        "召回率"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 27,
+      "question": "混合检索和重排打算什么时候做，要花多久？",
+      "keywords": [
+        "混合检索",
+        "重排",
+        "6 小时"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 28,
+      "question": "向量模型用的哪个，多少维？",
+      "keywords": [
+        "BAAI/bge-m3",
+        "1024 维"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 29,
+      "question": "我忘了某个配置或命令该查哪份文档？",
+      "keywords": [
+        "02-技术档案.md",
+        "配置",
+        "命令",
+        "版本"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 30,
+      "question": "首字延迟超过几秒说明检索或模型调用有问题？",
+      "keywords": [
+        "首字延迟",
+        "5 秒",
+        "检索",
+        "模型调用"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 31,
+      "question": "为什么问文章分几章答得差？",
+      "keywords": [
+        "top-K",
+        "向量检索",
+        "结构性短板"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 32,
+      "question": "为什么先按章节切再按长度切？只用固定长度切会有什么问题？",
+      "keywords": [
+        "章节切",
+        "固定长度切",
+        "800 字",
+        "120 字重叠"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 33,
+      "question": "Maven 本地仓库路径配到哪了？",
+      "keywords": [
+        "Maven",
+        "mavenLib"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 34,
+      "question": "LangChain4j 1.x 需要 JDK 多少版本？",
+      "keywords": [
+        "LangChain4j",
+        "JDK",
+        "17"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 35,
+      "question": "上传文件报500，日志里code 20015说参数无效，是什么原因？",
+      "keywords": [
+        "dimensions",
+        "20015"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 36,
+      "question": "服务器重启后这两个容器会自动启动吗？",
+      "keywords": [
+        "kb-postgres",
+        "kb-pgdata"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 37,
+      "question": "文档入库的时候是怎么处理的，从解析到落库都经过哪些步骤？",
+      "keywords": [
+        "切分",
+        "向量化"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 38,
+      "question": "stream 方法为什么返回 SseEmitter 而不是字符串？",
+      "keywords": [
+        "SseEmitter",
+        "stream()"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 39,
+      "question": "检索完之后怎么先把引用来源推给前端？",
+      "keywords": [
+        "sources",
+        "emit",
+        "toSourceRefs"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 40,
+      "question": "为什么检索结果要先推给用户，而不是等模型生成完一起推？",
+      "keywords": [
+        "sources",
+        "200 毫秒",
+        "SseEmitter",
+        "emit()"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 41,
+      "question": "怎么让模型回答的时候标出答案是从哪条资料来的？",
+      "keywords": [
+        "[1]",
+        "编号",
+        "来源",
+        "参考资料"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 42,
+      "question": "检索到的资料片段是怎么拼进提示词里的，编号和文件名章节名都带上了吗？",
+      "keywords": [
+        "i + 1",
+        "truncate",
+        "1200"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 43,
+      "question": "检索的时候最多返回几段结果，相似度低于多少会被过滤掉？",
+      "keywords": [
+        "maxResults",
+        "minScore",
+        "topK",
+        "0.35"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 44,
+      "question": "检索的时候 maxResults 和 minScore 分别是什么意思，调大调小会有什么影响？",
+      "keywords": [
+        "maxResults",
+        "minScore",
+        "1024"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 45,
+      "question": "为什么要把模型和向量库做成独立的 Bean？换供应商要改哪些地方？",
+      "keywords": [
+        "Bean",
+        "requireKey"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 46,
+      "question": "文档切分的时候每段多少字、重叠多少字？",
+      "keywords": [
+        "800 字",
+        "重叠 120 字",
+        "章节切分"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 47,
+      "question": "浏览器发问题过来之后，是先转成向量去检索，还是直接拿原文去搜？",
+      "keywords": [
+        "SSE",
+        "文本片段",
+        "向量"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 48,
+      "question": "向量检索为什么答不了这篇文章分几章这种问题？",
+      "keywords": [
+        "余弦相似度",
+        "全局性问题",
+        "混合检索",
+        "RRF"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 49,
+      "question": "minScore 设成 0.9 会怎么样？",
+      "keywords": [
+        "minScore",
+        "maxResults",
+        "0.9",
+        "0.05"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 50,
+      "question": "你们的防幻觉是怎么做的？如果模型还是编造内容，代码能拦住吗？",
+      "keywords": [
+        "提示词",
+        "后置校验",
+        "检索层",
+        "软约束"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 51,
+      "question": "检索结果里的 [1] 角标数字是怎么来的？",
+      "keywords": [
+        "i + 1",
+        "toSourceRefs",
+        "chunk_index",
+        "sources"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 52,
+      "question": "DeepSeek 思考模式开着的话流式输出为什么没反应？",
+      "keywords": [
+        "content",
+        "temperature"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 53,
+      "question": "接口返回 SseEmitter 之后是怎么分阶段把数据推给前端的？",
+      "keywords": [
+        "SseEmitter",
+        "sources",
+        "delta"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 54,
+      "question": "SSE 怎么实现，客户端断开怎么办？",
+      "keywords": [
+        "SSE",
+        "流式输出",
+        "WebSocket",
+        "下标加一"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 55,
+      "question": "系统怎么解决编号和专有名词召回不准的问题？",
+      "keywords": [
+        "关键词召回",
+        "RRF",
+        "重排模型",
+        "向量召回"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    },
+    {
+      "id": 56,
+      "question": "RAG项目怎么证明效果比别人的好？",
+      "keywords": [
+        "消融实验",
+        "公网可访问",
+        "分批重试",
+        "容器化"
+      ],
+      "category": "自动生成",
+      "origin": "自动"
+    }
+  ]
+}

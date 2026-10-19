@@ -1,0 +1,301 @@
+:root {
+  --lab-primary: #1b5aa6;
+  --lab-primary-dark: #123c73;
+  --lab-primary-soft: #eef4fc;
+  --lab-accent: #a97b2c;
+  --lab-accent-soft: #fbf4e6;
+  --lab-text: #1b2027;
+  --lab-muted: #5d6775;
+  --lab-border: #e6ebf2;
+  --lab-bg: #f5f7fb;
+  --lab-radius: 14px;
+  --lab-shadow: 0 1px 2px rgba(18, 38, 72, 0.05), 0 10px 26px rgba(18, 38, 72, 0.06);
+  --lab-shadow-hover: 0 2px 4px rgba(18, 38, 72, 0.06), 0 16px 34px rgba(18, 38, 72, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--lab-bg);
+  color: var(--lab-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+a {
+  color: var(--lab-primary);
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.page-subtitle {
+  color: var(--lab-muted);
+  margin: 0 0 28px;
+}
+
+.card-block {
+  background: #fff;
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  padding: 24px 26px;
+  box-shadow: var(--lab-shadow);
+  margin-bottom: 18px;
+}
+
+/* 章节标题：左侧一道短竖线，比纯文字更有层次 */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 650;
+  margin: 0 0 18px;
+}
+
+.section-title::before {
+  content: "";
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--lab-primary);
+}
+
+/* 章节头：标题在左、入口在右 */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+
+.section-head .section-title {
+  margin: 0;
+}
+
+.section-head .more {
+  font-size: 14px;
+  color: var(--lab-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.section-head .more:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #123c73 0%, #1b5aa6 52%, #2f7fd0 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 56px 44px;
+  margin-bottom: 22px;
+}
+
+/* 右上角的两圈光晕，避免大面积纯色显得空 */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -140px;
+  right: -100px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 68%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  position: relative;
+  margin: 0 0 14px;
+  font-size: 34px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.hero p {
+  position: relative;
+  margin: 0;
+  opacity: 0.94;
+  max-width: 720px;
+  font-size: 16px;
+}
+
+.hero-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* 数据指标条 */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--lab-border);
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: #fff;
+  padding: 20px 14px;
+  text-align: center;
+}
+
+.stat .value {
+  display: block;
+  font-size: 26px;
+  font-weight: 650;
+  color: var(--lab-primary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.stat .label {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--lab-muted);
+}
+
+/* 通用卡片网格 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  padding: 22px 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--lab-shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--lab-shadow-hover);
+  border-color: #c9dcf5;
+}
+
+.tile h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: var(--lab-primary-dark);
+}
+
+.tile p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--lab-muted);
+}
+
+/* 小标记 */
+.chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--lab-primary-soft);
+  color: var(--lab-primary);
+  font-size: 12.5px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.chip.gold {
+  background: var(--lab-accent-soft);
+  color: var(--lab-accent);
+}
+
+.empty {
+  color: var(--lab-muted);
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding: 24px 16px 56px;
+  }
+
+  .hero {
+    padding: 40px 26px;
+    border-radius: 16px;
+  }
+
+  .hero h1 {
+    font-size: 27px;
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;
+  }
+
+  .page-title {
+    font-size: 23px;
+  }
+
+  .card-block {
+    padding: 18px 18px;
+  }
+
+  .hero {
+    padding: 32px 20px;
+  }
+
+  .hero h1 {
+    font-size: 23px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat .value {
+    font-size: 22px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}

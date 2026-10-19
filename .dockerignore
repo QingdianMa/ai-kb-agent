@@ -1,0 +1,12 @@
+# 构建镜像时不需要把这些传给 Docker 守护进程，
+# 一是加快构建，二是避免把密钥和本地数据带进构建上下文。
+.env
+deploy/.env
+data/
+logs/
+# 注意：knowledge/ 和 eval/ 不能排除，Dockerfile 要把它们复制进镜像（运行时需要读）
+# docs/ 是开发文档，不需要进镜像，可以排除
+docs/
+.git/
+.idea/
+*.log
