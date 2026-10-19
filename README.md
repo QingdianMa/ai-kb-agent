@@ -182,4 +182,4 @@ docs/           设计与技术文档
 
 ## 许可证
 
-尚未指定。如果要开源，建议补一个 `LICENSE`（MIT 或 Apache-2.0）。
+[MIT](LICENSE) © 2026 Qingdian Ma
